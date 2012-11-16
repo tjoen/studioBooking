@@ -12,13 +12,14 @@ class booking
 	public $startTime;
 	public $endTime;
 	public $verified;
-	public function __construct($studio,$user,$start,$end)  
+	public function __construct($studio,$user,$start,$end,$verified=false)  
 	{  
 		$this->dbh= new PDO("mysql:host=localhost;dbname=urn", "root", "elvis");
 		$this->room=$studio;
 		$this->name=$user;
 		$this->startTime=$start;
 		$this->endTime=$end;
+		$this->verified=$verified;
 	}  
 	public function verify()
 	{
@@ -27,21 +28,28 @@ class booking
 		$currentBookings=$this->dbh->query($strSQL);
 		$clash=0;
 		while ($currentBooking = $currentBookings->fetch(PDO::FETCH_ASSOC)){$clash++;}
-		if ($clash) {echo("Your booking clashes with $clash other bookings");} else {$this->verified=true;}
+		echo $clash;
+		if (!$clash) {
+			$this->verified=true;
+			$_SESSION['booking']=array($this->room,$this->name,$this->startTime,$this->endTime,$this->verified);
+		}
 	}
 	public function confirm()
 	{
-		if ($this->verified){echo "Inserting into Database...";} else {echo "Please verify booking doesn't clash first";}
+		if ($this->verified){
+			echo "done"; 
+			session_destroy();
+		} else {
+			echo "Please verify booking doesn't clash first";
+		}
 	}
 }
 session_start();
 if (empty($_SESSION['booking'])) {
-	if (isset($_POST['room'])) {
-		$myBooking = new booking($_POST['room'],$_POST['user'],$_POST['startTime'],$_POST['endTime']);  
-		$myBooking->verify();
+	$myBooking = new booking($_POST['room'],$_POST['user'],$_POST['startTime'],$_POST['endTime']);  
+	$myBooking->verify();	
 } else {
-		$myBooking->confirm();
+	$myBooking = new booking($_SESSION['booking'][0],$_SESSION['booking'][1],$_SESSION['booking'][2],$_SESSION['booking'][3],$_SESSION['booking'][4]);  
+	$myBooking->confirm();
 }
- 
-
 ?>

@@ -9,9 +9,9 @@
 </head>
 <body>
 	<header>URN Studio Booking System v0.1</header>
-	This is where you can view and add studio bookings
-	<input id="startTime" placeholder="Start Time (24H)" />
-	<input id="endTime" placeholder="End Time (24H)" />
-	<input class="button" type="button" value="Add Booking" />
+	This is where you can view and add studio bookings<p />
+	<input id="startTime" placeholder="Start Time (24H)" /><br />
+	<input id="endTime" placeholder="End Time (24H)" /><br />
+	<input type="button" id="addBooking" value="Verify Availability" />
 </body>
 </html>
