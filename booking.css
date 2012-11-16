@@ -2,3 +2,7 @@ input {
 	border: thin black solid;
 	font-size: 12pt;
 }
+body {
+width: 60%
+font-family: 'Myriad Pro'
+}
