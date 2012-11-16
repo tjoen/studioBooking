@@ -12,7 +12,6 @@
 	This is where you can view and add studio bookings
 	<input id="startTime" placeholder="Start Time (24H)" />
 	<input id="endTime" placeholder="End Time (24H)" />
-	<input class="button" type="button" value="Verify" />
-	<input class="button" type="button" value="Confirm" />
+	<input class="button" type="button" value="Add Booking" />
 </body>
 </html>

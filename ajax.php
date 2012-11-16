@@ -34,12 +34,14 @@ class booking
 		if ($this->verified){echo "Inserting into Database...";} else {echo "Please verify booking doesn't clash first";}
 	}
 }
-if (isset($_POST['room'])) {
-	$myBooking = new booking($_POST['room'],$_POST['user'],$_POST['startTime'],$_POST['endTime']);  
-	$myBooking->verify();
-	if ($_POST['stage']=="Confirm")
-	{
+session_start();
+if (empty($_SESSION['booking'])) {
+	if (isset($_POST['room'])) {
+		$myBooking = new booking($_POST['room'],$_POST['user'],$_POST['startTime'],$_POST['endTime']);  
+		$myBooking->verify();
+} else {
 		$myBooking->confirm();
-	}
 }
+ 
+
 ?>
